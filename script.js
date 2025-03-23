@@ -28,7 +28,38 @@ addTask.addEventListener("click", function () {
     alert("Add a task");
   }
 });
+addTaskToList = (task) => {
+  let li = document.createElement("li");
+  let taskContent = document.createElement("div");
+  taskContent.innerHTML = `
+    <strong>${task.text}</strong> 
+    <br>
+    <small>${new Date(task.timestamp).toLocaleString()}</small>
+  `;
 
+  if (task.completed) {
+    taskContent.style.textDecoration = "line-through";
+    taskContent.style.color = "gray";
+    taskContent.style.backgroundColor = 'white';
+  }
+
+  let deleteBtn = document.createElement("button");
+  deleteBtn.innerHTML = "❌";
+  deleteBtn.addEventListener("click", function () {
+    deleteTask(task.text);
+  });
+
+  let confirmBtn = document.createElement("button");
+  confirmBtn.innerHTML = "✔️";
+  confirmBtn.addEventListener("click", function () {
+    confirmTask(task.text);
+  });
+
+  li.appendChild(taskContent);
+  li.appendChild(confirmBtn);
+  li.appendChild(deleteBtn);
+  taskList.appendChild(li);
+};
 function loadTasks() {
   displayTasks();
 }
